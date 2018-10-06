@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="es.scos">
+    package="es.source.code.activity">
+
+    <permission
+        android:name="scos.permission.ACCESSSCOS"
+        android:protectionLevel="dangerous"/>
 
     <application
         android:allowBackup="true"
@@ -9,7 +13,6 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".SCOSEntry">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,7 +20,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".MainScreen"
+            android:permission="scos.permission.ACCESSSCOS">
+            <intent-filter>
+                <action android:name="android.intent.action.SCOSMAIN" />
+                <!-- 不加DEFAULT会有问题 -->
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.SCOSLAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".LoginOrRegister" />
     </application>
-
+    <uses-permission android:name="scos.permission.ACCESSSCOS"></uses-permission>
 </manifest>

@@ -1,3 +1,42 @@
 <resources>
     <string name="app_name">SCOS</string>
+
+    <!-- 各页面标题 -->
+    <string name="label_order">点餐</string>
+    <string name="label_form">订单</string>
+    <string name="label_account">账户</string>
+    <string name="label_help">帮助</string>
+    <string name="label_password">请输入密码</string>
+    <string name="label_custom_order">查看订单</string>
+    <string name="label_food_detail">菜品详情</string>
+
+    <!-- 通用 -->
+    <string name="dialog_loading">载入中&#8230;</string>
+    <string name="unit_yuan">元</string>
+    <string name="btn_confirm">确认</string>
+    <string name="btn_cancel">取消</string>
+
+    <!-- 启动页 -->
+    <string name="toast_welcome">欢迎！</string>
+
+    <!-- 导航页 -->
+    <string name="text_order">点餐</string>
+    <string name="text_form">查看订单</string>
+    <string name="text_account">登录/注册</string>
+    <string name="text_help">系统帮助</string>
+    <string name="toast_new_account">欢迎您成为SCOS新用户</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+
 </resources>
+

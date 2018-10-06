@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!-- default -->
+    <color name="colorLine">#1bf50f</color>
+    <color name="default_theme_color">#97d993</color>
+    <color name="default_theme_color_dark">#1bf50f</color>
+    <color name="text_black">#444444</color>
+    <color name="text_gray">#999999</color>
+
+    <!-- button colors -->
+    <color name="blue">#4081F1</color>
+    <color name="blue_pressed">#2570f1</color>
+    <color name="red">#E5432C</color>
+    <color name="red_pressed">#e93218</color>
+    <color name="green">#97d993</color>
+    <color name="green_pressed">#1bf50f</color>
+    <color name="yellow">#F0BC04</color>
+    <color name="yellow_pressed">#cca003</color>
+
 </resources>
