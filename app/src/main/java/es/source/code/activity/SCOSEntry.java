@@ -1,4 +1,4 @@
-package es.scos;
+package es.source.code.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
