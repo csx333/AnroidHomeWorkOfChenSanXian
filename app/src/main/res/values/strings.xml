@@ -26,6 +26,11 @@
     <string name="text_help">系统帮助</string>
     <string name="toast_new_account">欢迎您成为SCOS新用户</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="menu_order">已点菜品</string>
+    <string name="menu_bill">查看订单</string>
+    <string name="menu_service">呼叫服务</string>
+    <string name="menu_auto_refresh_on">启动实时更新</string>
+    <string name="menu_auto_refresh_off">关闭实时更新</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -37,6 +42,9 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
 

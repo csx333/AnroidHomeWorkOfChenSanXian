@@ -6,7 +6,9 @@
     <color name="default_theme_color_dark">#1bf50f</color>
     <color name="text_black">#444444</color>
     <color name="text_gray">#999999</color>
-
+    <color name="bg_empty">#00000000</color>
+    <color name="default_bg">#eeeeee</color
+        >
     <!-- button colors -->
     <color name="blue">#4081F1</color>
     <color name="blue_pressed">#2570f1</color>

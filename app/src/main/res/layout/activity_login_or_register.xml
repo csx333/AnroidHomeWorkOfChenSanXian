@@ -9,41 +9,31 @@
 
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height_normal"
-        android:layout_marginLeft="@dimen/margin_large"
-        android:layout_marginTop="@dimen/dp_50"
+        android:layout_width="match_parent" android:layout_height="@dimen/item_height_normal"
+        android:layout_marginLeft="@dimen/margin_large" android:layout_marginTop="@dimen/dp_50"
         android:layout_marginRight="@dimen/margin_large">
-
         <ImageView
             android:id="@+id/img_account"
-            android:layout_width="@dimen/dp_20"
-            android:layout_height="@dimen/dp_20"
+            android:layout_width="@dimen/dp_20" android:layout_height="@dimen/dp_20"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/margin_tiny"
             android:layout_marginBottom="@dimen/margin_tiny"
             android:scaleType="fitXY"
             android:src="@drawable/ic_account_gray" />
-
         <EditText
             android:id="@+id/et_account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/margin_normal"
-            android:layout_marginBottom="@dimen/margin_tiny"
+            android:layout_marginLeft="@dimen/margin_normal" android:layout_marginBottom="@dimen/margin_tiny"
             android:layout_toRightOf="@+id/img_account"
             android:background="@null"
             android:hint="@string/label_account"
             android:maxLines="1"
-            android:textColor="@color/text_black"
-            android:textColorHint="@color/text_gray"
+            android:textColor="@color/text_black" android:textColorHint="@color/text_gray"
             android:textSize="@dimen/text_size_normal" />
-
         <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/line_height"
+            android:layout_width="match_parent" android:layout_height="@dimen/line_height"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/margin_normal"
             android:layout_toRightOf="@+id/img_account"
@@ -51,54 +41,38 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height_normal"
-        android:layout_marginLeft="@dimen/margin_large"
-        android:layout_marginRight="@dimen/margin_large">
-
+        android:layout_width="match_parent" android:layout_height="@dimen/item_height_normal"
+        android:layout_marginLeft="@dimen/margin_large" android:layout_marginRight="@dimen/margin_large">
         <ImageView
             android:id="@+id/img_pw"
-            android:layout_width="@dimen/dp_18"
-            android:layout_height="@dimen/dp_20"
+            android:layout_width="@dimen/dp_18" android:layout_height="@dimen/dp_20"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/margin_tiny"
-            android:layout_marginBottom="@dimen/margin_tiny"
+            android:layout_marginLeft="@dimen/margin_tiny" android:layout_marginBottom="@dimen/margin_tiny"
             android:scaleType="fitXY"
             android:src="@drawable/ic_password_gray" />
 
         <EditText
             android:id="@+id/et_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/margin_normal"
-            android:layout_marginBottom="@dimen/margin_tiny"
-            android:layout_toRightOf="@+id/img_pw"
-            android:background="@null"
-            android:hint="@string/label_password"
-            android:inputType="textPassword"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/margin_normal" android:layout_marginBottom="@dimen/margin_tiny"
+            android:layout_toRightOf="@+id/img_pw" android:background="@null"
+            android:hint="@string/label_password" android:inputType="textPassword"
             android:maxLines="1"
-            android:textColor="@color/text_black"
-            android:textColorHint="@color/text_gray"
+            android:textColor="@color/text_black" android:textColorHint="@color/text_gray"
             android:textSize="@dimen/text_size_normal" />
 
         <ImageView
             android:id="@+id/iv_see_password"
-            android:layout_width="@dimen/image_height_litter"
-            android:layout_height="@dimen/image_height_litter"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_width="@dimen/image_height_litter" android:layout_height="@dimen/image_height_litter"
+            android:layout_alignParentRight="true" android:layout_centerVertical="true"
             android:scaleType="fitXY"
             android:src="@drawable/image_password_bg" />
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/line_height"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/margin_normal"
-            android:layout_toRightOf="@+id/img_pw"
-            android:background="@color/colorLine" />
+            android:layout_width="match_parent" android:layout_height="@dimen/line_height"
+            android:layout_alignParentBottom="true" android:layout_marginLeft="@dimen/margin_normal"
+            android:layout_toRightOf="@+id/img_pw" android:background="@color/colorLine" />
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -156,6 +130,20 @@
         android:visibility="gone" />
 
     <Button
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_large"
+        android:layout_marginTop="@dimen/margin_large"
+        android:layout_marginRight="@dimen/margin_large"
+        android:background="@drawable/btn_green_selector"
+        android:paddingTop="@dimen/margin_small"
+        android:paddingBottom="@dimen/margin_small"
+        android:text="注册"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_normal" />
+
+    <Button
         android:id="@+id/btn_return"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -168,7 +156,5 @@
         android:text="返回"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_size_normal" />
-
-
 
 </LinearLayout>

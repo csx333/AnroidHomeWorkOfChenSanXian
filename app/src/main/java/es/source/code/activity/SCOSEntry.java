@@ -9,8 +9,6 @@ import android.view.MotionEvent;
 
 
 public class SCOSEntry extends Activity {
-    public static String message;
-
     private GestureDetector gestureDetector; 					//手势检测
     private OnGestureListener onSlideGestureListener = null;	//左右滑动手势检测监听器
 
@@ -19,7 +17,7 @@ public class SCOSEntry extends Activity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.entry);
-        //左右滑动手势监听器
+        //定义左右滑动手势监听器,将监听器传入手势识别器
         onSlideGestureListener = new OnSlideGestureListener();
         gestureDetector = new GestureDetector(this, onSlideGestureListener);
     }
@@ -64,7 +62,7 @@ public class SCOSEntry extends Activity {
             // TODO Auto-generated method stub
 
         }
-
+        //OnGestureListener接口对滑动处理的动作
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY){
             // 参数解释：
@@ -72,8 +70,7 @@ public class SCOSEntry extends Activity {
             // e2：最后一个ACTION_MOVE MotionEvent
             // velocityX：X轴上的移动速度，像素/秒
             // velocityY：Y轴上的移动速度，像素/秒
-            // 触发条件 ：
-            // X轴的坐标位移大于FLING_MIN_DISTANCE，且移动速度大于FLING_MIN_VELOCITY个像素/秒
+            // 触发条件：X轴的坐标位移大于FLING_MIN_DISTANCE，且移动速度大于FLING_MIN_VELOCITY个像素/秒
             if ((e1 == null) || (e2 == null)){
                 return false;
             }
@@ -82,20 +79,21 @@ public class SCOSEntry extends Activity {
             if (e1.getX() - e2.getX() > FLING_MIN_DISTANCE
                     && Math.abs(velocityX) > FLING_MIN_VELOCITY)
             {
-                // 向左滑动
+                // 向左滑动发送消息
                 Intent intent3 = new Intent(SCOSEntry.this, MainScreen.class);
-                //intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);	//不重复打开多个界面
-                message ="FromEntry";
+                intent3.putExtra("entry","FromEntry");
                 startActivity(intent3);
+                /**
+                 * R.anim.move_right_in新的Activity进入时的动画，这里是指OtherActivity进入时的动画
+                 * R.anim.move_left_out：旧的Activity出去时的动画，这里是指this进入时的动画
+                 */
                 overridePendingTransition(R.anim.move_right_in, R.anim.move_left_out);
-
             } else if (e2.getX() - e1.getX() > FLING_MIN_DISTANCE
                      //此处也可以加入对滑动速度的要求
                   && Math.abs(velocityX) > FLING_MIN_VELOCITY
                     )
             {
                 // 向右滑动
-
             }
             return false;
         }

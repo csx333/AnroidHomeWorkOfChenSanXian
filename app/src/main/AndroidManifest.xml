@@ -4,15 +4,18 @@
 
     <permission
         android:name="scos.permission.ACCESSSCOS"
-        android:protectionLevel="dangerous"/>
+        android:protectionLevel="dangerous" />
+
+    <uses-permission android:name="scos.permission.ACCESSSCOS" />
 
     <application
+        android:name=".MessageOfApplication"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.Light">
         <activity android:name=".SCOSEntry">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,16 +23,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainScreen"
+        <activity
+            android:name=".MainScreen"
             android:permission="scos.permission.ACCESSSCOS">
             <intent-filter>
                 <action android:name="android.intent.action.SCOSMAIN" />
                 <!-- 不加DEFAULT会有问题 -->
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.SCOSLAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".LoginOrRegister" />
+        <activity
+            android:name=".FoodView"
+            android:label="点餐"></activity>
+        <activity android:name=".FoodOrderView"
+            android:label="查看订单" ></activity>
     </application>
-    <uses-permission android:name="scos.permission.ACCESSSCOS"></uses-permission>
+
 </manifest>

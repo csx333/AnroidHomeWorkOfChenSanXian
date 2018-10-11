@@ -6,11 +6,48 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <!-- MainScreen的按钮样式 -->
+    <!-- e2中MainScreen的按钮样式 -->
     <style name="GuideButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/text_gray</item>
+    </style>
+    <!-- ListItem标题 -->
+    <style name="ItemTitle">
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+    <!-- ListItem内容 -->
+    <style name="ItemContent">
+        <item name="android:textColor">@color/text_gray</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+    </style>
+
+    <!-- 分隔线 -->
+    <style name="Divider">
+        <item name="android:background">@color/colorLine</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+    </style>
+
+    <!-- 底部button -->
+    <style name="BottomButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:clickable">true</item>
+        <item name="android:padding">14dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/btn_green_selector</item>
+
     </style>
 
 

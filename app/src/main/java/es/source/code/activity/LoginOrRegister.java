@@ -13,17 +13,22 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import es.source.code.model.User;
 
 public class LoginOrRegister extends Activity implements View.OnClickListener{
     //布局内的控件
     private EditText et_name;
     private EditText et_password;
     private Button mLoginBtn;
+    private Button mRegisterBtn;
     private Button mReturnBtn;
     private CheckBox checkBox_password;
     private CheckBox checkBox_login;
     private ImageView iv_see_password;
     private ProgressBar progressBar;
+    private User loginUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,7 @@ public class LoginOrRegister extends Activity implements View.OnClickListener{
     private void initViews() {
         mLoginBtn = (Button) findViewById(R.id.btn_login);
         mReturnBtn = (Button) findViewById(R.id.btn_return);
+        mRegisterBtn=(Button) findViewById(R.id.btn_register);
         progressBar = (ProgressBar)findViewById(R.id.pb) ;
         et_name = (EditText) findViewById(R.id.et_account);
         et_password = (EditText) findViewById(R.id.et_password);
@@ -48,13 +54,14 @@ public class LoginOrRegister extends Activity implements View.OnClickListener{
     private void setupEvents() {
         mLoginBtn.setOnClickListener(this);
         mReturnBtn.setOnClickListener(this);
+        mRegisterBtn.setOnClickListener(this);
        // checkBox_password.setOnCheckedChangeListener(this);
        // checkBox_login.setOnCheckedChangeListener(this);
         iv_see_password.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
-        Handler handler = new Handler();
+        loginUser = new User();
         switch (v.getId()) {
             //点击登陆按钮
             case R.id.btn_login:
@@ -66,21 +73,52 @@ public class LoginOrRegister extends Activity implements View.OnClickListener{
                     @Override
                     public void onFinish() {
                         loadProgressBar();
-                        loadUserName();
+                        if(checkUserName()){
+                            if(checkUserPassword()){
+                                loginUser.setUserName(getAccount());
+                                loginUser.setPassword(getPassword());
+                                loginUser.setOldUser(true);
+                                sendOlderUser(loginUser);
+                            }else{setErrorOf(et_password);}
+                        }else {setErrorOf(et_name);}
                     }
                 }.start();
                 break;
-                //点击返回按键
-            case R.id.btn_return:
-                Intent intent_return = new Intent(LoginOrRegister.this, MainScreen.class);
-                SCOSEntry.message="Return";
-                startActivity(intent_return);
+            //点击注册
+            case R.id.btn_register:
+                loadProgressBar();
+                //倒计时
+                new CountDownTimer(2000,1000){
+                    public void onTick(long millisUntilFinished) {
+                    }
+                    @Override
+                    public void onFinish() {
+                        loadProgressBar();
+                        if(checkUserName()){
+                            if(checkUserPassword()){
+                                loginUser.setUserName(getAccount());
+                                loginUser.setPassword(getPassword());
+                                loginUser.setOldUser(false);
+                                sendNewUser(loginUser);
+                            }else{setErrorOf(et_password);}
+                        }else {setErrorOf(et_name);}
+                    }
+                }.start();
                 break;
-                //点击密码是否可见
+            //点击返回按键
+            case R.id.btn_return:
+                backMainScreen();
+                break;
+            //点击密码是否可见
             case R.id.iv_see_password:
                 setPasswordVisibility();    //改变图片并设置输入框的文本可见或不可见
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        backMainScreen();
     }
     /**
      * 加载进度条
@@ -91,19 +129,49 @@ public class LoginOrRegister extends Activity implements View.OnClickListener{
         else progressBar.setVisibility(View.GONE);
     }
     /**
-     * 验证账号和密码
+     * 验证账号
      */
-    public void loadUserName() {
-        if (getAccount().matches("^[a-zA-Z0-9]{6,16}$")&&getPassword().matches("^[a-zA-Z0-9]{6,16}$")) {
-            Intent intent_login = new Intent(LoginOrRegister.this, MainScreen.class);
-            SCOSEntry.message="LoginSuccess";
-            startActivity(intent_login);
-        }else{
-            if(getAccount().matches("^[a-zA-Z0-9]{6,16}$"))et_password.setError("输入内容不符合规则");
-            else et_name.setError("输入内容不符合规则");
-        }
-
+    public Boolean checkUserName() {
+       return getAccount().matches("^[a-zA-Z0-9]{6,16}$");
     }
+    /**
+     * 验证密码
+     */
+    public Boolean checkUserPassword() {
+        return getPassword().matches("^[a-zA-Z0-9]{6,16}$");
+    }
+
+    /**
+     * 传递老用户
+     */
+    private void sendOlderUser(User loginUser){
+        Intent intent_login = new Intent(LoginOrRegister.this, MainScreen.class);
+        intent_login.putExtra("Log","LoginSuccess");
+        intent_login.putExtra("userData",loginUser);
+        startActivity(intent_login);
+//        Toast.makeText(getApplicationContext(),"LoginSucc",Toast.LENGTH_LONG).show();
+        finish();
+    }
+
+    /**
+     * 传递新用户
+     */
+    private void sendNewUser(User loginUser){
+        Intent intentReg = new Intent(LoginOrRegister.this, MainScreen.class);
+        intentReg.putExtra("Log","RegisterSuccess");
+        intentReg.putExtra("userData",loginUser);
+        startActivity(intentReg);
+//        Toast.makeText(getApplicationContext(),"RegSucc",Toast.LENGTH_LONG).show();
+        finish();
+    }
+
+    /**
+     * 弹出输入内容不符合规则
+     */
+    private void setErrorOf(EditText t){
+        t.setError("输入内容不符合规则");
+    }
+
     /**
      * 获取账号
      */
@@ -131,8 +199,16 @@ public class LoginOrRegister extends Activity implements View.OnClickListener{
             //密码可见
             et_password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
         }
-
     }
-
+    /**
+     * 返回mainscreen
+     */
+    private  void backMainScreen(){
+        Intent intent_return = new Intent(LoginOrRegister.this, MainScreen.class);
+        intent_return.putExtra("Log","Return");
+        startActivity(intent_return);
+        Toast.makeText(getApplicationContext(),"Return",Toast.LENGTH_LONG).show();
+        finish();
+    }
 
 }
