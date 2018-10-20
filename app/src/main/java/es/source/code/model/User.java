@@ -12,7 +12,6 @@ public class User implements Parcelable {
     public User()
     {
     }
-
     public String getUserName() {
         return userName;
     }
@@ -42,7 +41,9 @@ public class User implements Parcelable {
     {
         return 0;
     }
-    //重写writeToParcel方法，将你的对象序列化为一个Parcel对象，即：将类的数据写入外部提供的Parcel中，打包需要传递的数据到Parcel容器保存，以便从 Parcel容器获取数据
+    //重写writeToParcel方法，将你的对象序列化为一个Parcel对象，即：
+    // 将类的数据写入外部提供的Parcel中，打包需要传递的数据到Parcel容器保存，
+    // 以便从 Parcel容器获取数据
     @Override
     public void writeToParcel(Parcel out, int flags)
     {

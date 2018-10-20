@@ -1,27 +1,23 @@
 package es.source.code.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import es.source.code.adapter.MainScreenAdapter;
+import es.source.code.application.MessageOfApplication;
 import es.source.code.model.User;
-import es.source.code.model.iconOfMainScreen;
+import es.source.code.model.IconOfMainScreen;
 
 public class MainScreen extends Activity {
 
-    private ArrayList<iconOfMainScreen> iconList = new ArrayList<>();
+    private ArrayList<IconOfMainScreen> iconList = new ArrayList<>();
     private MainScreenAdapter adapter;
     private User user;
 
@@ -35,32 +31,40 @@ public class MainScreen extends Activity {
         if(messageEntry ==null)messageEntry = "";
         if(messageLog == null)messageLog = "";
         if (messageLog.equals("Return") || messageEntry.equals("FromEntry")) {
-            iconList.add(new iconOfMainScreen(R.drawable.ic_account_green, "登陆/注册"));
-            iconList.add(new iconOfMainScreen(R.drawable.ic_help_green, "帮助"));
+            iconList.add(new IconOfMainScreen(R.drawable.ic_account_green, "登陆/注册"));
+            iconList.add(new IconOfMainScreen(R.drawable.ic_help_green, "帮助"));
         } else {
-            iconList.add(new iconOfMainScreen(R.drawable.ic_account_green, "登陆/注册"));
-            iconList.add(new iconOfMainScreen(R.drawable.ic_help_green, "帮助"));
-            iconList.add(new iconOfMainScreen(R.drawable.ic_order_green, "订餐"));
-            iconList.add(new iconOfMainScreen(R.drawable.ic_form_green, "订单"));
+            iconList.add(new IconOfMainScreen(R.drawable.ic_account_green, "登陆/注册"));
+            iconList.add(new IconOfMainScreen(R.drawable.ic_help_green, "帮助"));
+            iconList.add(new IconOfMainScreen(R.drawable.ic_order_green, "订餐"));
+            iconList.add(new IconOfMainScreen(R.drawable.ic_form_green, "订单"));
             switch (messageLog){
                 case "LoginSuccess":
                     user =(User)getIntent().getParcelableExtra("userData");
+                    //将user存储到app
+                    MessageOfApplication.getInstance().setUser(user);
                     break;
                 case "RegisterSuccess":
                     user =(User)getIntent().getParcelableExtra("userData");
-                    Toast.makeText(getApplicationContext(),user.getUserName()+"，欢迎您成为SCOS新用户",Toast.LENGTH_LONG).show();
+                    //将user存储到app
+                    MessageOfApplication.getInstance().setUser(user);
+                    Toast.makeText(getApplicationContext(),user.getUserName()+"，"
+                            + "欢迎您成为SCOS新用户",Toast.LENGTH_LONG).show();
                     break;
                 default:user =null;break;
             }
         }
 
-        MainScreenAdapter adapter = new MainScreenAdapter(MainScreen.this,R.layout.item_gv_main_screen,iconList);
+        MainScreenAdapter adapter = new MainScreenAdapter(MainScreen.this,
+                R.layout.item_gv_main_screen,iconList);
         GridView gridView = (GridView)findViewById(R.id.gv_icon);
         gridView.setAdapter(adapter);
+
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                iconOfMainScreen icon = iconList.get(position);
+                IconOfMainScreen icon = iconList.get(position);
                 Intent intent;
                 switch (icon.getIName()){
                     case "登陆/注册":

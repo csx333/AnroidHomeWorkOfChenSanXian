@@ -16,6 +16,20 @@ import es.source.code.model.Food;
 
 public class FoodOrderRecyclerAdapter extends RecyclerView.Adapter<FoodOrderRecyclerAdapter.myViewHolder> {
 
+    //自定义viewholder
+    class myViewHolder extends RecyclerView.ViewHolder {
+        ImageView mItemFoodsImg;
+        TextView mItemFoodsName;
+        TextView mItemFoodsPrice;
+
+        public myViewHolder(View itemView) {
+            super(itemView);
+            mItemFoodsImg = (ImageView) itemView.findViewById(R.id.iv_order_food);
+            mItemFoodsName = (TextView) itemView.findViewById(R.id.tv_food_order_name);
+            mItemFoodsPrice = (TextView) itemView.findViewById(R.id.tv_food_order_price);
+        }
+    }
+
     private Context context;
     private ArrayList<Food> foodsList;
 
@@ -49,19 +63,6 @@ public class FoodOrderRecyclerAdapter extends RecyclerView.Adapter<FoodOrderRecy
         return foodsList.size();
     }
 
-    //自定义viewholder
-     class myViewHolder extends RecyclerView.ViewHolder {
-        ImageView mItemFoodsImg;
-        TextView mItemFoodsName;
-        TextView mItemFoodsPrice;
-
-        public myViewHolder(View itemView) {
-            super(itemView);
-            mItemFoodsImg = (ImageView) itemView.findViewById(R.id.iv_order_food);
-            mItemFoodsName = (TextView) itemView.findViewById(R.id.tv_food_order_name);
-            mItemFoodsPrice = (TextView) itemView.findViewById(R.id.tv_food_order_price);
-        }
-    }
     /**
      * 创建viewhodler，相当于listview中getview中的创建view和viewhodler
      * @param parent

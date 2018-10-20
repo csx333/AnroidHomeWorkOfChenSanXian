@@ -149,10 +149,8 @@ public class LoginOrRegister extends Activity implements View.OnClickListener{
         intent_login.putExtra("Log","LoginSuccess");
         intent_login.putExtra("userData",loginUser);
         startActivity(intent_login);
-//        Toast.makeText(getApplicationContext(),"LoginSucc",Toast.LENGTH_LONG).show();
         finish();
     }
-
     /**
      * 传递新用户
      */

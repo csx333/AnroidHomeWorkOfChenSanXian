@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="es.source.code.fragment.orderedFragment"
+    tools:context="es.source.code.fragment.OrderedFragment"
     android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
@@ -10,5 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </android.support.v7.widget.RecyclerView>
-
+    <TextView
+        android:id="@+id/order_number"
+        style="@style/ItemContent"/>
+    <TextView
+        android:id="@+id/order_price"
+        style="@style/ItemContent"/>
+    <TextView
+        android:id="@+id/btn_submit"
+        style="@style/BottomButton"/>
 </LinearLayout>

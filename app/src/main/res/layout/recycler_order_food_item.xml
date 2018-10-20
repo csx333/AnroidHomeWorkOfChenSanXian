@@ -14,7 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:focusable="true"
+        android:descendantFocusability="afterDescendants">
 
         <ImageView
             android:id="@+id/iv_order_food"
@@ -38,7 +40,6 @@
             <TextView
                 android:id="@+id/tv_food_order_price"
                 style="@style/ItemContent"/>
-
         </LinearLayout>
 
     </LinearLayout>

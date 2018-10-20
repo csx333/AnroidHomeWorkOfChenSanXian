@@ -4,27 +4,29 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Food implements Parcelable {
-
     // 菜名
     private String foodName;
     // 价格
     private int price;
     // 库存;
-//    private int store;
+//  private int store;
     // 是否点单
     private String order;
     // 图片资源ID;
     private int imgId;
+    //种类
+    private int style;
 
     public Food(){
     }
 
-    public Food(String foodName, int price, String order, int imgId) {
+    public Food(String foodName, int price, String order, int imgId, int styleOfFood) {
         this.foodName = foodName;
         this.price = price;
 //        this.store = store;
         this.order = order;
         this.imgId = imgId;
+        this.style=styleOfFood;
     }
 
     public String getFoodName() {
@@ -59,6 +61,12 @@ public class Food implements Parcelable {
         this.imgId = imgId;
     }
 
+    public void setStyle(int style){this.style=style;}
+
+    public int getStyle(){
+        return style;
+    }
+
 //    public int getStore() {
 //        return store;
 //    }
@@ -79,6 +87,7 @@ public class Food implements Parcelable {
 //        dest.writeInt(this.store);
         dest.writeString(this.order);
         dest.writeInt(this.imgId);
+        dest.writeInt(this.style);
     }
 
     protected Food(Parcel in) {
@@ -87,6 +96,8 @@ public class Food implements Parcelable {
 //        this.store = in.readInt();
         this.order = in.readString();
         this.imgId = in.readInt();
+        this.style=in.readInt();
+
     }
 
     public static final Parcelable.Creator<Food> CREATOR = new Parcelable.Creator<Food>() {

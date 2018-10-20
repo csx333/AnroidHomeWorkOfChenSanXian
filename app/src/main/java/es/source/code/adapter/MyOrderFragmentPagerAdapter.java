@@ -4,12 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import es.source.code.fragment.coolFoodFragment;
-import es.source.code.fragment.hotFoodFragment;
-import es.source.code.fragment.notOrderedFragment;
-import es.source.code.fragment.orderedFragment;
-import es.source.code.fragment.seaFoodFragment;
-import es.source.code.fragment.wineFoodFragment;
+import es.source.code.fragment.NotOrderedFragment;
+import es.source.code.fragment.OrderedFragment;
 
 public class MyOrderFragmentPagerAdapter extends FragmentPagerAdapter {
     private String[] mTitles = new String[]{"未下单", "已下单"};
@@ -21,9 +17,9 @@ public class MyOrderFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 1) {
-            return new orderedFragment();
+            return new OrderedFragment();
         }
-         return new notOrderedFragment();
+         return new NotOrderedFragment();
     }
 
     @Override

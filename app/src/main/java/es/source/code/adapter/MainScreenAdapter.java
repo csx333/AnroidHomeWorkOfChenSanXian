@@ -1,29 +1,25 @@
 package es.source.code.adapter;
 
 import android.content.Context;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 import es.source.code.activity.R;
-import es.source.code.model.iconOfMainScreen;
+import es.source.code.model.IconOfMainScreen;
 
 public class MainScreenAdapter extends ArrayAdapter {
 
     private LayoutInflater inflater;
-    private ArrayList<iconOfMainScreen> mData;
+    private ArrayList<IconOfMainScreen> mData;
     private Context mContext;           //布局id
     private  int resourceId;
 
-    public MainScreenAdapter(Context mcontext,int id, ArrayList<iconOfMainScreen> mData) {
+    public MainScreenAdapter(Context mcontext,int id, ArrayList<IconOfMainScreen> mData) {
         super(mcontext,id,mData);
         this.mData = mData;
         this.mContext = mContext;
@@ -63,48 +59,8 @@ public class MainScreenAdapter extends ArrayAdapter {
         return convertView;
     }
 
-    //添加一个元素
-    public void add(iconOfMainScreen data) {
-        if (mData == null) {
-            mData = new ArrayList<>();
-        }
-        mData.add(data);
-        notifyDataSetChanged();
-    }
-
-    //往特定位置，添加一个元素
-    public void add(int position,iconOfMainScreen data){
-        if (mData == null) {
-            mData = new ArrayList<>();
-        }
-        mData.add(position, data);
-        notifyDataSetChanged();
-    }
-
-    public void remove(iconOfMainScreen data) {
-        if(mData != null) {
-            mData.remove(data);
-        }
-        notifyDataSetChanged();
-    }
-
-    public void remove(int position) {
-        if(mData != null) {
-            mData.remove(position);
-        }
-        notifyDataSetChanged();
-    }
-
-    public void clear() {
-        if(mData != null) {
-            mData.clear();
-        }
-        notifyDataSetChanged();
-    }
-
     private class ViewHolder {
         ImageView img_icon;
         TextView txt_content;
     }
-
 }

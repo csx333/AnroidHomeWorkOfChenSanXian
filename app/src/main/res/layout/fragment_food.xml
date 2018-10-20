@@ -2,11 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="es.source.code.fragment.coolFoodFragment">
+    tools:context="es.source.code.fragment.FoodFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/hot_recyclerView"
+        android:id="@+id/cool_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+
+        android:descendantFocusability="afterDescendants"/>
 
 </FrameLayout>
