@@ -10,16 +10,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import es.source.code.activity.R;
-import es.source.code.model.IconOfMainScreen;
+import es.source.code.model.IconOfSCOS;
 
-public class MainScreenAdapter extends ArrayAdapter {
+public class GridOfIconAdapter extends ArrayAdapter {
 
     private LayoutInflater inflater;
-    private ArrayList<IconOfMainScreen> mData;
+    private ArrayList<IconOfSCOS> mData;
     private Context mContext;           //布局id
     private  int resourceId;
 
-    public MainScreenAdapter(Context mcontext,int id, ArrayList<IconOfMainScreen> mData) {
+    public GridOfIconAdapter(Context mcontext, int id, ArrayList<IconOfSCOS> mData) {
         super(mcontext,id,mData);
         this.mData = mData;
         this.mContext = mContext;

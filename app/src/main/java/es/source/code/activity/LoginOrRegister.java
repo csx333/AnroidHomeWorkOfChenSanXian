@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import es.source.code.model.User;
+import es.source.code.util.SharedPreferencesUtils;
 
 public class LoginOrRegister extends Activity implements View.OnClickListener{
     //布局内的控件
@@ -29,14 +30,25 @@ public class LoginOrRegister extends Activity implements View.OnClickListener{
     private ImageView iv_see_password;
     private ProgressBar progressBar;
     private User loginUser;
+    private SharedPreferencesUtils sharedPreferencesUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_or_register);
+
         initViews();
+
+        sharedPreferencesUtils = new SharedPreferencesUtils(this, "UserInfo");
+        boolean isRemember = sharedPreferencesUtils.getBoolean("isInHere",false);
+        if(isRemember){
+            setTextNameAndPassword();
+            mRegisterBtn.setVisibility(View.GONE);
+        }else {
+            mLoginBtn.setVisibility(View.GONE);
+        }
         setupEvents();
-      //  initData();
+
     }
 
     private void initViews() {
@@ -74,10 +86,12 @@ public class LoginOrRegister extends Activity implements View.OnClickListener{
                     public void onFinish() {
                         loadProgressBar();
                         if(checkUserName()){
-                            if(checkUserPassword()){
+                            if(checkUserPassword()&&getPassword().equals(getLocalPassword())){
                                 loginUser.setUserName(getAccount());
                                 loginUser.setPassword(getPassword());
                                 loginUser.setOldUser(true);
+                                sharedPreferencesUtils.save("isInHere",true);
+                                sharedPreferencesUtils.save("loginState",true);
                                 sendOlderUser(loginUser);
                             }else{setErrorOf(et_password);}
                         }else {setErrorOf(et_name);}
@@ -99,6 +113,10 @@ public class LoginOrRegister extends Activity implements View.OnClickListener{
                                 loginUser.setUserName(getAccount());
                                 loginUser.setPassword(getPassword());
                                 loginUser.setOldUser(false);
+                                sharedPreferencesUtils.save("userName",getAccount());
+                                sharedPreferencesUtils.save("password",getPassword());
+                                sharedPreferencesUtils.save("isInHere",true);
+                                sharedPreferencesUtils.save("loginState",true);
                                 sendNewUser(loginUser);
                             }else{setErrorOf(et_password);}
                         }else {setErrorOf(et_name);}
@@ -119,6 +137,27 @@ public class LoginOrRegister extends Activity implements View.OnClickListener{
     @Override
     public void onBackPressed(){
         backMainScreen();
+    }
+    /**
+     * 设置数据到输入框中
+     */
+    public void setTextNameAndPassword() {
+        et_name.setText("" + getLocalName());
+        et_password.setText(""+getPassword());
+    }
+    /**
+     * 获得保存在本地的用户名
+     */
+    public String getLocalName() {
+        String name = sharedPreferencesUtils.getString("userName");
+        return name;
+    }
+    /**
+     * 获得保存在本地的密码
+     */
+    public String getLocalPassword() {
+        String password = sharedPreferencesUtils.getString("password");
+        return password;
     }
     /**
      * 加载进度条
@@ -159,7 +198,6 @@ public class LoginOrRegister extends Activity implements View.OnClickListener{
         intentReg.putExtra("Log","RegisterSuccess");
         intentReg.putExtra("userData",loginUser);
         startActivity(intentReg);
-//        Toast.makeText(getApplicationContext(),"RegSucc",Toast.LENGTH_LONG).show();
         finish();
     }
 
@@ -202,10 +240,12 @@ public class LoginOrRegister extends Activity implements View.OnClickListener{
      * 返回mainscreen
      */
     private  void backMainScreen(){
+        if(sharedPreferencesUtils.getBoolean("isInHere",false)){
+            sharedPreferencesUtils.save("loginState",false);
+        }
         Intent intent_return = new Intent(LoginOrRegister.this, MainScreen.class);
-        intent_return.putExtra("Log","Return");
+//        intent_return.putExtra("Log","Return");
         startActivity(intent_return);
-        Toast.makeText(getApplicationContext(),"Return",Toast.LENGTH_LONG).show();
         finish();
     }
 

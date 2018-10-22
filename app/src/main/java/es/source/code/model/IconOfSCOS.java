@@ -1,12 +1,12 @@
 package es.source.code.model;
 
-public class IconOfMainScreen {
+public class IconOfSCOS {
     private int imageId;
     private String iName;
 
-    public IconOfMainScreen() {
+    public IconOfSCOS() {
     }
-    public IconOfMainScreen(int imageId, String iName) {
+    public IconOfSCOS(int imageId, String iName) {
         this.imageId = imageId;
         this.iName = iName;
     }

@@ -1,6 +1,7 @@
 package es.source.code.fragment;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,58 @@ public class OrderedFragment extends Fragment {
     private TextView price;
     private TextView textButton;
     private User user;
+    private ProgressBar progressBar;
+    private int i=0;
+    MyTask myTask;
+
+    private class MyTask extends AsyncTask<String,Integer,String>{
+
+        @Override
+        protected void onPreExecute() {
+            progressBar.setVisibility(View.VISIBLE);}
+            // 执行前显示提示
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                int count = 0;
+                int length = 1;
+                while (count<99) {
+                    count += length;
+                    // 可调用publishProgress（）显示进度, 之后将执行onProgressUpdate（）
+                    publishProgress(count);
+                    // 模拟耗时任务
+                    Thread.sleep(60);
+                }
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onProgressUpdate(Integer... progresses) {
+            progressBar.setProgress(progresses[0]);
+//            textButton.setText("loading..." + progresses[0] + "%");
+        }
+
+        // 方法4：onPostExecute（）
+        // 作用：接收线程任务执行结果、将执行结果显示到UI组件
+        @Override
+        protected void onPostExecute(String result) {
+            // 执行完毕后，则更新UI
+            progressBar.setVisibility(View.GONE);
+            textButton.setText("已付款");
+            textButton.setEnabled(false);
+            Toast.makeText(getActivity(),"您已付款"+i+"元。"+"您获得SCOS积分："+i+"分",Toast.LENGTH_SHORT).show();
+        }
+
+        // 方法5：onCancelled()
+        // 作用：将异步任务设置为：取消状态
+        @Override
+        protected void onCancelled() {
+
+        }
+    }
 
     @Nullable
     @Override
@@ -41,10 +95,12 @@ public class OrderedFragment extends Fragment {
         initRecyclerView();
 
         user = MessageOfApplication.getInstance().getUser();
-        int i=0;
         textButton=(TextView) view.findViewById(R.id.btn_submit);
         price=(TextView) view.findViewById(R.id.order_price);
         number=(TextView)view.findViewById(R.id.order_number);
+        progressBar=(ProgressBar) view.findViewById(R.id.pb2);
+
+        myTask =new MyTask();
 
         number.setText("已点数量："+ foodsPayList.size());
         for(Food food: foodsPayList){
@@ -58,10 +114,7 @@ public class OrderedFragment extends Fragment {
             public void onClick(View v) {
                 if (textButton.getText().toString().equals("结账")){
                     if(user!=null){
-                        if(user.isOldUser()){
-                            Toast.makeText(getActivity(),"您好，老顾客，本次您可享受7折优惠",Toast.LENGTH_SHORT).show();
-                            textButton.setText("已付款");
-                        }
+                        myTask.execute();
                     }
                 }
             }
@@ -71,6 +124,14 @@ public class OrderedFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        if ( myTask != null && myTask.getStatus() == MyTask.Status.RUNNING ){
+            myTask.cancel(true);
+            myTask = null;
+        }
     }
     private void initFoodsData(){
         foodsPayList = MessageOfApplication.getInstance().getFoodPayList();

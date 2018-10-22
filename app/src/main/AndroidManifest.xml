@@ -4,9 +4,14 @@
 
     <permission
         android:name="scos.permission.ACCESSSCOS"
-        android:protectionLevel="dangerous" />
+        android:protectionLevel="dangerous"/>
 
-    <uses-permission android:name="scos.permission.ACCESSSCOS" />
+    <uses-permission android:name="scos.permission.ACCESSSCOS"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name="es.source.code.application.MessageOfApplication"
@@ -40,7 +45,8 @@
         <activity
             android:name=".FoodOrderView"
             android:label="查看订单" />
-        <activity android:name=".FoodDetailed"></activity>
+        <activity android:name=".FoodDetailed" />
+        <activity android:name=".SCOSHelper"></activity>
     </application>
 
 </manifest>

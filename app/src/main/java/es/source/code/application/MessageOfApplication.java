@@ -12,7 +12,6 @@ public class MessageOfApplication  extends Application {
     private ArrayList<Food> foodsPayList;
     private static MessageOfApplication instance;
     private User user;
-
     public final static int COOLFOOD=0;
     public final static int HOTFOOD=1;
     public final static int SEAFOOD=2;

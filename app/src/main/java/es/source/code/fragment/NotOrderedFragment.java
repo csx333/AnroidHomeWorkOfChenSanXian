@@ -72,6 +72,7 @@ public class NotOrderedFragment extends Fragment {
                 intent.setClass(getActivity(),FoodOrderView.class);
                 intent.putExtra("idOfFoodView",1);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
         return view;
