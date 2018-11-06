@@ -9,7 +9,7 @@ public class Food implements Parcelable {
     // 价格
     private int price;
     // 库存;
-//  private int store;
+    private int store;
     // 是否点单
     private String order;
     // 图片资源ID;
@@ -20,10 +20,10 @@ public class Food implements Parcelable {
     public Food(){
     }
 
-    public Food(String foodName, int price, String order, int imgId, int styleOfFood) {
+    public Food(String foodName, int price, String order, int imgId, int styleOfFood,int store) {
         this.foodName = foodName;
         this.price = price;
-//        this.store = store;
+        this.store = store;
         this.order = order;
         this.imgId = imgId;
         this.style=styleOfFood;
@@ -67,13 +67,13 @@ public class Food implements Parcelable {
         return style;
     }
 
-//    public int getStore() {
-//        return store;
-//    }
-//
-//    public void setStore(int store) {
-//        this.store = store;
-//    }
+    public int getStore() {
+        return store;
+    }
+
+    public void setStore(int store) {
+        this.store = store;
+    }
 
     @Override
     public int describeContents() {
@@ -84,7 +84,7 @@ public class Food implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.foodName);
         dest.writeInt(this.price);
-//        dest.writeInt(this.store);
+        dest.writeInt(this.store);
         dest.writeString(this.order);
         dest.writeInt(this.imgId);
         dest.writeInt(this.style);
@@ -93,7 +93,7 @@ public class Food implements Parcelable {
     protected Food(Parcel in) {
         this.foodName = in.readString();
         this.price = in.readInt();
-//        this.store = in.readInt();
+        this.store = in.readInt();
         this.order = in.readString();
         this.imgId = in.readInt();
         this.style=in.readInt();

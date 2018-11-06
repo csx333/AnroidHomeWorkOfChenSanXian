@@ -27,7 +27,7 @@ public class FoodFragment extends Fragment {
     private View view;//定义view用来设置fragment的layout
     private ArrayList<Food> foodsList =new ArrayList<>();
     public RecyclerView mFoodRecyclerView;//定义RecyclerView
-    private FoodViewRecyclerAdapter mFoodViewRecyclerAdapter;
+    public static FoodViewRecyclerAdapter mFoodViewRecyclerAdapter;
     private int styleOfFood;
 
     public static FoodFragment newInstance(int styleOfFood){
@@ -61,11 +61,11 @@ public class FoodFragment extends Fragment {
             }
         }
     }
-    private void initRecyclerView(){
+    public void initRecyclerView(){
         //获取RecyclerView
         mFoodRecyclerView=(RecyclerView)view.findViewById(R.id.cool_recyclerView);
         //创建adapter
-        mFoodViewRecyclerAdapter = new FoodViewRecyclerAdapter(getActivity(),foodsList);
+        mFoodViewRecyclerAdapter = new FoodViewRecyclerAdapter(getActivity(),MessageOfApplication.getInstance().getFoodList(),styleOfFood);
         //给RecyclerView设置adapter
         mFoodRecyclerView.setAdapter(mFoodViewRecyclerAdapter);
         mFoodViewRecyclerAdapter.setOnItemClickListener(new FoodViewRecyclerAdapter.OnItemClickListener() {

@@ -3,6 +3,7 @@ package es.source.code.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,9 +16,8 @@ import es.source.code.application.MessageOfApplication;
 import es.source.code.model.Food;
 
 public class FoodDetailed extends AppCompatActivity {
-
-    private GestureDetector gestureDetector; 					//手势检测
-    private GestureDetector.OnGestureListener onSlideGestureListener = null;	//左右滑动手势检测监听器
+    private GestureDetector gestureDetector; //手势检测
+    private GestureDetector.OnGestureListener onSlideGestureListener = null;//左右滑动手势检测监听器
     public ImageView mItemFoodsImg;
     public TextView mItemFoodsName;
     public TextView mItemFoodsPrice;
@@ -35,10 +35,9 @@ public class FoodDetailed extends AppCompatActivity {
         //定义左右滑动手势监听器,将监听器传入手势识别器
         onSlideGestureListener = new FoodDetailed.OnSlideGestureListener();
         gestureDetector = new GestureDetector(this, onSlideGestureListener);
-
         fromFoodFragment();
         intData();
-        food=getMoveFood(positionOfItem);
+        food = getMoveFood(positionOfItem);
         mItemFoodsOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,10 +78,15 @@ public class FoodDetailed extends AppCompatActivity {
     }
     private void fromFoodFragment() {
         listFood = getIntent().getParcelableArrayListExtra("foodList");
+        Log.d("listFood",listFood.size()+"");
         positionOfItem = getIntent().getIntExtra("positionOfItem", 0);
+        Log.d("positionOfItem",positionOfItem+"");
     }
 
     private Food getMoveFood(int positionOfItem){
+        if(positionOfItem>=listFood.size() || positionOfItem<0){
+            positionOfItem=Math.abs(positionOfItem%listFood.size());
+        }
         Food foodTemp = listFood.get(positionOfItem);
         mItemFoodsImg.setImageResource(foodTemp.getImgId());
         mItemFoodsName.setText(foodTemp.getFoodName());//获取实体类中的name字段并设置

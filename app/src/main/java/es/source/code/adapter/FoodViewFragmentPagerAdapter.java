@@ -35,5 +35,11 @@ public class FoodViewFragmentPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return mTitles[position];
     }
+
+    @Override
+    public long getItemId(int position) {
+        return (long)position;
+    }
+
 }
 

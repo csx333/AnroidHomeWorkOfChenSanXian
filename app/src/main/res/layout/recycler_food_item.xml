@@ -43,6 +43,10 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_food_number"
+            style="@style/ItemTitle"/>
+
+        <TextView
             android:id="@+id/btn_order"
             android:textColor="@android:color/white"
             android:layout_width="wrap_content"

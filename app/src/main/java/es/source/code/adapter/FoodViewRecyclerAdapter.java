@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
 import es.source.code.activity.R;
+import es.source.code.application.MessageOfApplication;
 import es.source.code.model.Food;
 
 public class FoodViewRecyclerAdapter extends RecyclerView.Adapter<FoodViewRecyclerAdapter.myViewHolder> {
@@ -19,6 +20,7 @@ public class FoodViewRecyclerAdapter extends RecyclerView.Adapter<FoodViewRecycl
         public TextView mItemFoodsName;
         public TextView mItemFoodsPrice;
         public TextView mItemFoodsOrder;
+        public TextView mItemFoodsNumber;
         public View foodView;
 
         public myViewHolder(View itemView) {
@@ -27,6 +29,7 @@ public class FoodViewRecyclerAdapter extends RecyclerView.Adapter<FoodViewRecycl
             mItemFoodsName = (TextView) itemView.findViewById(R.id.tv_food_name);
             mItemFoodsPrice = (TextView) itemView.findViewById(R.id.tv_food_price);
             mItemFoodsOrder = (TextView) itemView.findViewById(R.id.btn_order);
+            mItemFoodsNumber = (TextView) itemView.findViewById(R.id.tv_food_number);
             foodView=itemView;
         }
     }
@@ -39,12 +42,14 @@ public class FoodViewRecyclerAdapter extends RecyclerView.Adapter<FoodViewRecycl
     private Context context;
     private ArrayList<Food> foodsList;
     private OnItemClickListener onItemClickListener;
+    private int styleOfFood;
 
     //创建构造函数
-    public FoodViewRecyclerAdapter(Context context, ArrayList<Food> foodsList) {
+    public FoodViewRecyclerAdapter(Context context, ArrayList<Food> appFoodsList,int styleFood) {
         //将传递过来的数据，赋值给本地变量
         this.context = context;//上下文
-        this.foodsList = foodsList;//实体类数据ArrayList
+        this.styleOfFood= styleFood;
+        this.foodsList = initFoodsData(appFoodsList);//实体类数据ArrayList
     }
     /**
      * 创建viewhodler，相当于listview中getview中的创建view和viewhodler
@@ -71,14 +76,15 @@ public class FoodViewRecyclerAdapter extends RecyclerView.Adapter<FoodViewRecycl
         holder.mItemFoodsName.setText(data.getFoodName());//获取实体类中的name字段并设置
         holder.mItemFoodsPrice.setText(String.valueOf(data.getPrice()));//获取实体类中的price字段并设置
         holder.mItemFoodsOrder.setText(data.Order());
+        holder.mItemFoodsNumber.setText(String.valueOf(data.getStore()));
 
         LinearLayout ll = holder.foodView.findViewById(R.id.ll_food_item);
-        //todo
+
         ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(onItemClickListener != null){
-                    onItemClickListener.OnItemClick(foodsList,position);
+                    onItemClickListener.OnItemClick(foodsList, position);
                     notifyDataSetChanged();
                 }
             }
@@ -87,7 +93,7 @@ public class FoodViewRecyclerAdapter extends RecyclerView.Adapter<FoodViewRecycl
             @Override
             public void onClick(View v) {
                 if(onItemClickListener != null){
-                    onItemClickListener.OnItemButtonClick(v,position);
+                    onItemClickListener.OnItemButtonClick(v, position);
                     notifyDataSetChanged();
             }
             }
@@ -107,4 +113,13 @@ public class FoodViewRecyclerAdapter extends RecyclerView.Adapter<FoodViewRecycl
         this.onItemClickListener=onItemClickListener;
     }
 
+    private ArrayList<Food> initFoodsData(ArrayList<Food> appFoodList){
+        ArrayList<Food> foodsList2 = new ArrayList<>();
+        for(Food item: appFoodList){
+            if(item.getStyle() == styleOfFood){
+                foodsList2.add(item);
+            }
+        }
+        return foodsList2;
+    }
 }

@@ -4,14 +4,15 @@
 
     <permission
         android:name="scos.permission.ACCESSSCOS"
-        android:protectionLevel="dangerous"/>
+        android:protectionLevel="dangerous" />
 
-    <uses-permission android:name="scos.permission.ACCESSSCOS"/>
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="scos.permission.ACCESSSCOS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name="es.source.code.application.MessageOfApplication"
@@ -46,7 +47,25 @@
             android:name=".FoodOrderView"
             android:label="查看订单" />
         <activity android:name=".FoodDetailed" />
-        <activity android:name=".SCOSHelper"></activity>
+        <activity android:name=".SCOSHelper" />
+        <!-- 的android:process属性指定其运行在不同的process中,此处定义一个全局进程，若要定义私有进程，设置为“：任意字符串” -->
+        <service
+            android:name="es.source.code.service.ServerObserverService"
+            android:enabled="true"
+            android:exported="true"
+            android:process="es.source.code.observerservice" />
+        <service
+            android:name="es.source.code.service.UpdateService"
+            android:exported="false" />
+
+        <receiver
+            android:name="es.source.code.br.DeviceStartedListener"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
