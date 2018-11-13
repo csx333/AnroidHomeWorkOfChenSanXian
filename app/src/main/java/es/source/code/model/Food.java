@@ -45,7 +45,7 @@ public class Food implements Parcelable {
         this.price = price;
     }
 
-    public String Order() {
+    public String getOrder() {
         return order;
     }
 

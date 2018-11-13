@@ -9,8 +9,11 @@ public class User implements Parcelable {
     private String password;
     private boolean oldUser;
 
-    public User()
-    {
+    public User() {
+    }
+    public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
     }
     public String getUserName() {
         return userName;

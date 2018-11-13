@@ -75,7 +75,7 @@ public class FoodViewRecyclerAdapter extends RecyclerView.Adapter<FoodViewRecycl
         holder.mItemFoodsImg.setImageResource(data.getImgId());
         holder.mItemFoodsName.setText(data.getFoodName());//获取实体类中的name字段并设置
         holder.mItemFoodsPrice.setText(String.valueOf(data.getPrice()));//获取实体类中的price字段并设置
-        holder.mItemFoodsOrder.setText(data.Order());
+        holder.mItemFoodsOrder.setText(data.getOrder());
         holder.mItemFoodsNumber.setText(String.valueOf(data.getStore()));
 
         LinearLayout ll = holder.foodView.findViewById(R.id.ll_food_item);

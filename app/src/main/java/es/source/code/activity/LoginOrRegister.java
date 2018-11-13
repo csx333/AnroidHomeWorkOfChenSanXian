@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -14,6 +15,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.List;
+
+import es.source.code.model.Result;
+import es.source.code.util.HttpUtil;
+import okhttp3.Call;
+import okhttp3.Response;
 
 import es.source.code.model.User;
 import es.source.code.util.SharedPreferencesUtils;
@@ -31,6 +46,8 @@ public class LoginOrRegister extends Activity implements View.OnClickListener{
     private ProgressBar progressBar;
     private User loginUser;
     private SharedPreferencesUtils sharedPreferencesUtils;
+    private final String URLOFLOGIN = "http://192.168.9.241:8080/SCOSServer/LoginValidator";
+    boolean isReturnOkFromService= false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +107,17 @@ public class LoginOrRegister extends Activity implements View.OnClickListener{
                                 loginUser.setUserName(getAccount());
                                 loginUser.setPassword(getPassword());
                                 loginUser.setOldUser(true);
-                                sharedPreferencesUtils.save("isInHere",true);
-                                sharedPreferencesUtils.save("loginState",true);
-                                sendOlderUser(loginUser);
+                                useokHttp(URLOFLOGIN,loginUser);
+                                try {
+                                    Thread.sleep(6000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                if(isReturnOkFromService) {
+                                    sharedPreferencesUtils.save("isInHere", true);
+                                    sharedPreferencesUtils.save("loginState", true);
+                                    sendOlderUser(loginUser);
+                                }
                             }else{setErrorOf(et_password);}
                         }else {setErrorOf(et_name);}
                     }
@@ -113,11 +138,19 @@ public class LoginOrRegister extends Activity implements View.OnClickListener{
                                 loginUser.setUserName(getAccount());
                                 loginUser.setPassword(getPassword());
                                 loginUser.setOldUser(false);
-                                sharedPreferencesUtils.save("userName",getAccount());
-                                sharedPreferencesUtils.save("password",getPassword());
-                                sharedPreferencesUtils.save("isInHere",true);
-                                sharedPreferencesUtils.save("loginState",true);
-                                sendNewUser(loginUser);
+                                useokHttp(URLOFLOGIN,loginUser);
+                                try {
+                                    Thread.sleep(6000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                if(isReturnOkFromService) {
+                                    sharedPreferencesUtils.save("userName", getAccount());
+                                    sharedPreferencesUtils.save("password", getPassword());
+                                    sharedPreferencesUtils.save("isInHere", true);
+                                    sharedPreferencesUtils.save("loginState", true);
+                                    sendNewUser(loginUser);
+                                }
                             }else{setErrorOf(et_password);}
                         }else {setErrorOf(et_name);}
                     }
@@ -249,4 +282,56 @@ public class LoginOrRegister extends Activity implements View.OnClickListener{
         finish();
     }
 
+    private void useokHttp(String URLOFLOGIN,User user){
+        HttpUtil.sendRequestWithOkHttp(URLOFLOGIN,user,new okhttp3.Callback(){
+            @Override
+            public void onResponse(Call call, Response response) throws IOException{
+                String responseData = response.body().string();
+//                isReturnOkFromService = showResponseWithJSONObject(responseData);
+
+               isReturnOkFromService = showResponseWithJSONGSON(responseData);
+            }
+            @Override
+            public void onFailure(Call call,IOException e){
+                e.printStackTrace();
+                Log.d("HTTP","连接失败");
+            }
+        } );
+    }
+
+//    //使用JSONObject解析数据JSON
+//    private boolean showResponseWithJSONObject(String response){
+//        String resultCode="";
+//        try{
+//            JSONArray jsonArray = new JSONArray(response);
+//            for(int i=0;i<jsonArray.length();i++ ){
+//                JSONObject jsonObject = jsonArray.getJSONObject(i);
+//                resultCode = jsonObject.getString("RESULTCODE");
+//                Log.d("RESULTCODE",resultCode+">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+//            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        if(Integer.valueOf(resultCode) == 1){
+//            return true;
+//        }else return false;
+//    }
+
+    //使用GSON解析数据JSON
+    private boolean showResponseWithJSONGSON(String responseData){
+        Gson gson = new Gson();
+        Result result = gson.fromJson(responseData,Result.class);
+        if(result != null){
+            if(result.getRESULTCODE() == 1){
+                Log.d("RESULTCODE","传入成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                return true;
+            }else{
+                Log.d("RESULTCODE","传入失败1>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                return false;}
+        }else{
+            Log.d("RESULTCODE","传入失败2>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+            return false;
+        }
+
+    }
 }

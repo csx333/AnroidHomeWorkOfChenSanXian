@@ -79,7 +79,7 @@ public class FoodFragment extends Fragment {
             @Override
             public void OnItemButtonClick(View v,int position) {
                 Food food = foodsList.get(position);
-                if(food.Order().equals("点餐")) {
+                if(food.getOrder().equals("点餐")) {
                     MessageOfApplication.getInstance().operateFoodOrderList(food,true);
                     Toast.makeText(v.getContext(), "点菜成功", Toast.LENGTH_SHORT).show();
                     food.setOrder("退点");

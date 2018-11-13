@@ -91,7 +91,7 @@ public class FoodDetailed extends AppCompatActivity {
         mItemFoodsImg.setImageResource(foodTemp.getImgId());
         mItemFoodsName.setText(foodTemp.getFoodName());//获取实体类中的name字段并设置
         mItemFoodsPrice.setText(String.valueOf(foodTemp.getPrice()));//获取实体类中的price字段并设置
-        mItemFoodsOrder.setText(foodTemp.Order());
+        mItemFoodsOrder.setText(foodTemp.getOrder());
         return foodTemp;
     }
 
